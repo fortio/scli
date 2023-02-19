@@ -1,3 +1,6 @@
+[![Go Reference](https://pkg.go.dev/badge/fortio.org/scli.svg)](https://pkg.go.dev/fortio.org/scli)
+[![Go Report Card](https://goreportcard.com/badge/fortio.org/scli)](https://goreportcard.com/report/fortio.org/scli)
+[![GitHub Release](https://img.shields.io/github/release/fortio/scli.svg?style=flat)](https://github.com/fortio/scli/releases/)
 # scli
 
 Extends [cli](https://github.com/fortio/cli#cli) to server `main()`s .
