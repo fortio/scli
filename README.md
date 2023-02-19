@@ -1,61 +1,14 @@
-# cli
-Reduce boiler plate needed on each new Golang main functions (Command Line Interface) for both tool and servers
+# scli
 
-It abstracts the repetitive parts of a `main()` command line tool, flag parsing, usage, etc...
+Extends [cli](https://github.com/fortio/cli#cli) to server `main()`s .
 
-You can see real use example in a tool like [multicurl](https://github.com/fortio/multicurl) or a server like [proxy](https://github.com/fortio/proxy).
+In addition to flags, usage and help output, arguments validation, `scli` abstracts the repetitive parts of a `main()` to setup a config directory watch for [dynamic flags](dflag) (configmap in kubernetes cases) and configuration endpoint/UI/api.
 
-## Tool Example
-Client/Tool example (no dynamic flag url or config) [sampleTool](sampleTool/main.go)
-
-Code as simple as
-```golang
-import (
-	"flag"
-	"os"
-
-	"fortio.org/cli"
-	"fortio.org/log"
-)
-
-func main() {
-	myFlag := flag.String("myflag", "default", "my flag")
-	cli.MinArgs = 2
-	cli.MaxArgs = 4
-	cli.Main() // Will have either called cli.ExitFunction or everything is valid
-	// Next line output won't show when passed -quiet
-	log.Infof("Info test, -myflag is %q", *myFlag)
-	log.Printf("Hello world, version %s, args %v", cli.ShortVersion, flag.Args())
-}
-```
-
-```bash
-$ sampleTool a
-sampleTool 1.0.0 usage:
-	sampleTool [flags] arg1 arg2 [arg3...arg4]
-or 1 of the special arguments
-	sampleTool {help|version|buildinfo}
-flags:
-  -loglevel level
-    	log level, one of [Debug Verbose Info Warning Error Critical Fatal] (default Info)
-  -myflag string
-    	my flag (default "default")
-  -quiet
-    	Quiet mode, sets log level to warning
-At least 2 arguments expected, got 1
-```
-
-or normal case
-```bash
-$ sampleTool a b
-15:42:17 I Info test, -myflag is "default"
-15:42:17 Hello world, version dev, args [a b]
-```
+You can see real use example in a server like [proxy](https://github.com/fortio/proxy).
 
 ## Server Example
 
 Server example [sampleServer](sampleServer/main.go)
-
 
 ```bash
 % go run . -config-dir ./config -config-port 8888 a b
@@ -75,6 +28,7 @@ With the flags ui on http://localhost:8888
 <img width="716" alt="flags UI" src="https://user-images.githubusercontent.com/3664595/219904547-368a024e-1d6a-4301-a7a9-8882e37f5a90.png">
 
 ## Additional builtins
+(coming from `cli`'s base module)
 
 ### buildinfo
 
