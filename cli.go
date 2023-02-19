@@ -7,7 +7,7 @@
 // [ServerMain] allows the setup of a confimap/directory watch for flags
 // and a config endpoint (uses [fortio.org/dflag]).
 // Configure using the [cli] package variables (at minimum [MinArgs] unless your
-// binary only accepts flags), setup additional [flag]s before calling
+// binary only accepts flags), setup additional [flag] before calling
 // [ServerMain].
 package scli // import "fortio.org/scli"
 
@@ -23,9 +23,9 @@ import (
 )
 
 // ServerMain extends [cli.Main] and returns true if a config port server has been started
-// caller needs to select {} after its own code is ready.
-// Will have called ExitFunction (ie exited) if there are usage errors
-// (wrong number of arguments, bad flags etc...).
+// caller needs to select {} after their own code is ready.
+// [cli.ExitFunction] will have been called (ie program will have exited exited)
+// if there are usage errors (wrong number of arguments, bad flags etc...).
 // It sets up (optional) config-dir to watch and listen on config-port for dynamic flag
 // changes and UI/api.
 func ServerMain() bool {
