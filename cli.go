@@ -53,20 +53,3 @@ func ServerMain() bool {
 	log.Printf("Starting %s %s", cli.ProgramName, cli.LongVersion)
 	return hasStartedServer
 }
-
-// Plural adds an "s" to the noun if i is not 1.
-func Plural(i int, noun string) string {
-	return PluralExt(i, noun, "s")
-}
-
-// PluralExt returns the noun with an extension if i is not 1.
-// Eg:
-//
-//	PluralExt(1, "address", "es") // -> "address"
-//	PluralExt(3 /* or 0 */, "address", "es") // -> "addresses"
-func PluralExt(i int, noun string, ext string) string {
-	if i == 1 {
-		return noun
-	}
-	return noun + ext
-}
