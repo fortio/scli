@@ -50,6 +50,6 @@ func ServerMain() bool {
 			mux.HandleFunc(setURL, ep.SetFlag)
 		}
 	}
-	log.Printf("Starting %s %s", cli.ProgramName, cli.LongVersion)
+	log.Infof("Starting %s %s", cli.ProgramName, cli.LongVersion)
 	return hasStartedServer
 }
