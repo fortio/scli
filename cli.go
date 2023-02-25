@@ -16,6 +16,7 @@ import (
 	"net"
 	"net/http"
 	"strings"
+	"time"
 
 	"fortio.org/cli"
 	"fortio.org/dflag/configmap"
@@ -60,7 +61,11 @@ func ServerMain() bool {
 		// a dependency loop.
 		port := NormalizePort(*configPort)
 		m := http.NewServeMux()
-		s := &http.Server{Addr: port, Handler: m}
+		s := &http.Server{
+			Addr:        port,
+			Handler:     m,
+			ReadTimeout: 3 * time.Second,
+		}
 		setURL := "/set"
 		ep := endpoint.NewFlagsEndpoint(flag.CommandLine, setURL)
 		m.HandleFunc("/", ep.ListFlags)
