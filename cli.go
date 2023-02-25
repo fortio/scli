@@ -13,14 +13,27 @@ package scli // import "fortio.org/scli"
 
 import (
 	"flag"
+	"net"
+	"net/http"
+	"strings"
 
 	"fortio.org/cli"
 	"fortio.org/dflag/configmap"
 	"fortio.org/dflag/dynloglevel"
 	"fortio.org/dflag/endpoint"
-	"fortio.org/fortio/fhttp"
 	"fortio.org/log"
+	"fortio.org/version"
 )
+
+// NormalizePort parses port and returns host:port if port is in the form
+// of host:port already or :port if port is only a port (doesn't contain :).
+// Copied from fortio.org/fnet.NormalizePort to avoid dependency loop.
+func NormalizePort(port string) string {
+	if strings.ContainsAny(port, ":") {
+		return port
+	}
+	return ":" + port
+}
 
 // ServerMain extends [cli.Main] and returns true if a config port server has been started
 // caller needs to select {} after their own code is ready.
@@ -39,16 +52,31 @@ func ServerMain() bool {
 			log.Critf("Unable to watch config/flag changes in %v: %v", *configDir, err)
 		}
 	}
+	shortScliV, _, _ := version.FromBuildInfoPath("fortio.org/scli")
+
 	hasStartedServer := false
 	if *configPort != "" {
-		mux, addr := fhttp.HTTPServer("config", *configPort) // err already logged
-		if addr != nil {
-			hasStartedServer = true
-			setURL := "/set"
-			ep := endpoint.NewFlagsEndpoint(flag.CommandLine, setURL)
-			mux.HandleFunc("/", ep.ListFlags)
-			mux.HandleFunc(setURL, ep.SetFlag)
+		// Sort of inlining fortio.org/fhttp.HTTPServer here to avoid
+		// a dependency loop.
+		port := NormalizePort(*configPort)
+		m := http.NewServeMux()
+		s := &http.Server{Addr: port, Handler: m}
+		setURL := "/set"
+		ep := endpoint.NewFlagsEndpoint(flag.CommandLine, setURL)
+		m.HandleFunc("/", ep.ListFlags)
+		m.HandleFunc(setURL, ep.SetFlag)
+		ln, err := net.Listen("tcp", port)
+		if err != nil {
+			log.Fatalf("Unable to serve config on %s: %v", s.Addr, err)
 		}
+		log.Infof("Fortio scli %v dflag config server listening on %s", shortScliV, ln.Addr())
+		go func() {
+			err := s.Serve(ln)
+			if err != nil {
+				log.Fatalf("Unable to serve config on %s: %v", s.Addr, err)
+			}
+		}()
+		hasStartedServer = true
 	}
 	log.Infof("Starting %s %s", cli.ProgramName, cli.LongVersion)
 	return hasStartedServer
