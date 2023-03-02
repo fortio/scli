@@ -1,10 +1,10 @@
 package main
 
 import (
-	"log"
 	"time"
 
 	"fortio.org/cli"
+	"fortio.org/log"
 	"fortio.org/scli"
 )
 
@@ -13,7 +13,9 @@ func main() {
 	cli.MaxArgs = 4
 	srvStarted := scli.ServerMain()
 	time.Sleep(1 * time.Second)
-	log.Printf("FD count: %d", scli.NumFD())
+	log.Infof("FD count: %d", scli.NumFD())
+	time.Sleep(20 * time.Second)
+	log.Infof("FD count: %d", scli.NumFD())
 	if !srvStarted {
 		// in reality in both case we'd start some actual server
 		return
