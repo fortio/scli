@@ -7,7 +7,6 @@ package scli // import "fortio.org/scli"
 
 import (
 	"os"
-	"os/exec"
 	"runtime"
 
 	"fortio.org/log"
@@ -26,16 +25,9 @@ func countDir(dir string) int {
 		return -1
 	}
 	if log.LogDebug() {
-		log.Debugf("Counting fd in %s", dir)
-		b, err := exec.Command("ls", "-la", dir).CombinedOutput()
-		if err != nil {
-			log.Errf("Unable to ls -l %s: %v", dir, err)
-		} else {
-			log.Debugf("ls -l %s: %s", dir, b)
-		}
 		log.Debugf("Found %d names in %s: %v", len(names), dir, names)
 	}
-	return len(names) - 2 // -2 for . and ..
+	return len(names) - 3 // -3 for . and .. and the dir we just opened
 }
 
 func NumFD() int {
