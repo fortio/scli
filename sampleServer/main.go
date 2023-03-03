@@ -16,6 +16,10 @@ func main() {
 	log.Infof("FD count: %d", scli.NumFD())
 	time.Sleep(20 * time.Second)
 	log.Infof("FD count: %d", scli.NumFD())
+	// is it stable:
+	for i := 0; i < 10; i++ {
+		log.Infof("FD count: %d", scli.NumFD())
+	}
 	if !srvStarted {
 		// in reality in both case we'd start some actual server
 		return

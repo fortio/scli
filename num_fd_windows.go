@@ -9,34 +9,35 @@
 package scli // import "fortio.org/scli"
 
 import (
+	"syscall"
+	"unsafe"
+
 	"fortio.org/log"
 	"golang.org/x/sys/windows"
-	"unsafe"
 )
 
-func GetSystemInformation() (*windows.SYSTEM_PROCESS_INFORMATION, error) {
-	// Sorta similar to https://go.googlesource.com/sys.git/+/master/windows/svc/security.go#83
-	var systemProcessInfo *windows.SYSTEM_PROCESS_INFORMATION
-	for infoSize := uint32((unsafe.Sizeof(*systemProcessInfo) + unsafe.Sizeof(uintptr(0))) * 1024); ; {
-		systemProcessInfo = (*windows.SYSTEM_PROCESS_INFORMATION)(unsafe.Pointer(&make([]byte, infoSize)[0]))
-		err := windows.NtQuerySystemInformation(windows.SystemProcessInformation, unsafe.Pointer(systemProcessInfo), infoSize, &infoSize)
-		if err == nil {
-			break
-		} else if err != windows.STATUS_INFO_LENGTH_MISMATCH {
-			return nil, err
-		}
+var (
+	modkernel32           = windows.NewLazySystemDLL("kernel32.dll")
+	getProcessHandleCount = modkernel32.NewProc("GetProcessHandleCount")
+)
+
+func GetCurrentProcessHandleCount() int {
+
+	hdl, err := windows.GetCurrentProcess()
+	if err != nil {
+		log.Errf("GetCurrentProcess failed: %v", err)
+		return -1
 	}
-	if log.LogDebug() {
-		log.Debugf("GetSystemInformation: %#v", systemProcessInfo)
+	count := uint32(0)
+	ret, _, err := syscall.Syscall(getProcessHandleCount.Addr(), 2, uintptr(hdl), uintptr(unsafe.Pointer(&count)), 0)
+	log.Debugf("GetProcessHandleCount = %v, %v : %v", ret, err, count)
+	if ret == 0 {
+		log.Errf("GetProcessHandleCount failed: %v", err)
+		return -1
 	}
-	return systemProcessInfo, nil
+	return int(count)
 }
 
 func NumFD() int {
-	systemProcessInfo, err := GetSystemInformation()
-	if err != nil {
-		log.Errf("GetSystemInformation failed: %v", err)
-		return -1
-	}
-	return int(systemProcessInfo.HandleCount)
+	return GetCurrentProcessHandleCount()
 }
