@@ -22,7 +22,6 @@ var (
 )
 
 func GetCurrentProcessHandleCount() int {
-
 	hdl, err := windows.GetCurrentProcess()
 	if err != nil {
 		log.Errf("GetCurrentProcess failed: %v", err)
