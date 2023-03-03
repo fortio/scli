@@ -3,6 +3,9 @@
 // (c) 2023 Fortio Authors
 // See LICENSE
 
+//go:build !windows
+// +build !windows
+
 package scli // import "fortio.org/scli"
 
 import (
@@ -33,8 +36,8 @@ func countDir(dir string) int {
 	}
 	if log.LogDebug() {
 		log.Debugf("Found %d names in %s: %v", len(names), dir, names)
-		//time.Sleep(60 * time.Second)
-		//log.Debugf("Done sleeping, closing dir")
+		// time.Sleep(60 * time.Second)
+		// log.Debugf("Done sleeping, closing dir")
 	}
 	f.Close()
 	return len(names) - 1 // for the dir we just opened
@@ -43,8 +46,8 @@ func countDir(dir string) int {
 func NumFD() int {
 	switch runtime.GOOS {
 	case "windows":
-		log.Errf("NumFD not (yet) implemented on windows")
-		return -1
+		log.Fatalf("Shouldn't be reached (!windows build tag)")
+		return -1 // not reached (also, not possible)
 	case "darwin":
 		return countDir("/dev/fd") - 1 // macos seems to open 2 fds to Readdirnames /dev/fd
 	default:
