@@ -43,6 +43,8 @@ func countDir(dir string) int {
 	return len(names) - 1 // for the dir we just opened
 }
 
+// NumFD returns the number of open file descriptors (or -1 on error).
+// On windows it returns the number of handles.
 func NumFD() int {
 	switch runtime.GOOS {
 	case "windows":

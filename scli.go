@@ -9,6 +9,8 @@
 // Configure using the [cli] package variables (at minimum [MinArgs] unless your
 // binary only accepts flags), setup additional [flag] before calling
 // [ServerMain].
+// It also includes [NumFD] utility function to cross platform get the number
+// of open file descriptors (handles on windows) held by your go process.
 package scli // import "fortio.org/scli"
 
 import (
