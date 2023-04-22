@@ -15,15 +15,29 @@ Server example [sampleServer](sampleServer/main.go)
 
 ```bash
 % go run . -config-dir ./config -config-port 8888 a b
-15:45:20 I updater.go:47> Configmap flag value watching on ./config
-15:45:20 I updater.go:156> updating loglevel to "verbose\n"
-15:45:20 I logger.go:183> Log level is now 1 Verbose (was 2 Info)
-15:45:20 I updater.go:97> Now watching . and config
-15:45:20 I updater.go:162> Background thread watching config now running
-15:45:20 Fortio 1.50.1 config server listening on tcp [::]:8888
-15:45:20 Starting sampleServer dev  go1.19.6 arm64 darwin
+14:50:54 I updater.go:47> Configmap flag value watching on ./config
+14:50:54 I updater.go:156> updating loglevel to "verbose\n"
+14:50:54 I logger.go:183> Log level is now 1 Verbose (was 2 Info)
+14:50:54 I updater.go:97> Now watching . and config
+14:50:54 I updater.go:162> Background thread watching config now running
+14:50:54 I scli.go:81> Fortio scli dev dflag config server listening on [::]:8888
+14:50:54 I scli.go:90> Starting sampleServer dev  go1.20.3 arm64 darwin
+14:50:55 I main.go:16> FD count 1s after start : 16
 # When visiting the UI
-15:46:20 ListFlags: GET / HTTP/1.1 [::1]:52406 ()  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
+14:51:06 ListFlags: GET / HTTP/1.1 [::1]:64731 () ...
+# ...
+14:51:15 I main.go:18> FD count 20s later      : 16
+14:51:15 I main.go:21> FD count stability check: 16
+14:51:15 I main.go:21> FD count stability check: 16
+14:51:15 I main.go:21> FD count stability check: 16
+14:51:15 I main.go:21> FD count stability check: 16
+14:51:15 I main.go:21> FD count stability check: 16
+14:51:15 I main.go:27> Running until interrupted (ctrl-c)...
+# pkill -int sampleServer
+14:51:20 W scli.go:101> Interrupt received.
+14:51:20 I main.go:29> Normal exit
+% echo $?
+0
 ```
 
 With the flags ui on http://localhost:8888

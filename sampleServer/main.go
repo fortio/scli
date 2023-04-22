@@ -13,16 +13,18 @@ func main() {
 	cli.MaxArgs = 4
 	srvStarted := scli.ServerMain()
 	time.Sleep(1 * time.Second)
-	log.Infof("FD count: %d", scli.NumFD())
+	log.Infof("FD count 1s after start : %d", scli.NumFD())
 	time.Sleep(20 * time.Second)
-	log.Infof("FD count: %d", scli.NumFD())
+	log.Infof("FD count 20s later      : %d", scli.NumFD())
 	// is it stable:
-	for i := 0; i < 10; i++ {
-		log.Infof("FD count: %d", scli.NumFD())
+	for i := 0; i < 5; i++ {
+		log.Infof("FD count stability check: %d", scli.NumFD())
 	}
 	if !srvStarted {
 		// in reality in both case we'd start some actual server
 		return
 	}
-	select {}
+	log.Infof("Running until interrupted (ctrl-c)...")
+	scli.UntilInterrupted()
+	log.Infof("Normal exit")
 }

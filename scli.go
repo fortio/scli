@@ -17,6 +17,8 @@ import (
 	"flag"
 	"net"
 	"net/http"
+	"os"
+	"os/signal"
 	"strings"
 	"time"
 
@@ -87,4 +89,14 @@ func ServerMain() bool {
 	}
 	log.Infof("Starting %s %s", cli.ProgramName, cli.LongVersion)
 	return hasStartedServer
+}
+
+// UntilInterrupted runs forever or until interrupted (ctrl-c or shutdown signal (kill -INT)).
+func UntilInterrupted() {
+	// listen for interrupt signal
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+	// Block until a signal is received.
+	<-c
+	log.Warnf("Interrupt received.")
 }
