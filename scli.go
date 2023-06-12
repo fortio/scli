@@ -23,6 +23,7 @@ import (
 	"time"
 
 	"fortio.org/cli"
+	"fortio.org/dflag"
 	"fortio.org/dflag/configmap"
 	"fortio.org/dflag/dynloglevel"
 	"fortio.org/dflag/endpoint"
@@ -50,6 +51,11 @@ func ServerMain() bool {
 	configDir := flag.String("config-dir", "", "Config `directory` to watch for dynamic flag changes")
 	configPort := flag.String("config-port", "", "Config `port` to open for dynamic flag UI/api")
 	dynloglevel.LoggerFlagSetup("loglevel")
+	dflag.DynBool(flag.CommandLine, "json-log", true,
+		"Log in JSON format, use -json-log=false to disable").WithSyncNotifier(func(_ bool, newValue bool) {
+		log.Debugf("Changing log format to JSON %v", newValue)
+		log.Config.JSON = newValue
+	})
 	cli.ServerMode = true
 	cli.Main() // will call ExitFunction() if there are usage errors
 	if *configDir != "" {
