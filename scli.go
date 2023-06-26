@@ -51,10 +51,15 @@ func ServerMain() bool {
 	configDir := flag.String("config-dir", "", "Config `directory` to watch for dynamic flag changes")
 	configPort := flag.String("config-port", "", "Config `port` to open for dynamic flag UI/api")
 	dynloglevel.LoggerFlagSetup("loglevel")
-	dflag.DynBool(flag.CommandLine, "json-log", true,
-		"Log in JSON format, use -json-log=false to disable").WithSyncNotifier(func(_ bool, newValue bool) {
+	dflag.DynBool(flag.CommandLine, "logger-json", true,
+		"Log in JSON format, use -logger-json=false to disable").WithSyncNotifier(func(_ bool, newValue bool) {
 		log.Debugf("Changing log format to JSON %v", newValue)
 		log.Config.JSON = newValue
+	})
+	dflag.DynBool(flag.CommandLine, "logger-timestamp", true,
+		"Timestamps emitted in JSON logs, use -logger-timestamp=false to disable").WithSyncNotifier(func(_ bool, newValue bool) {
+		log.Debugf("Changing log format to JSON timestamp %v", newValue)
+		log.Config.NoTimestamp = !newValue
 	})
 	cli.ServerMode = true
 	cli.Main() // will call ExitFunction() if there are usage errors
