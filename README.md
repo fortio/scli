@@ -59,7 +59,7 @@ $ go run . -config-dir ./config -config-port 8888 a b
 {"ts":1686609103.450534,"level":"info","file":"scli.go","line":96,"msg":"Starting sampleServer dev  go1.20.5 arm64 darwin"}
 {"ts":1686609104.452193,"level":"info","file":"main.go","line":16,"msg":"FD count 1s after start : 14"}
 # list flag (curl localhost:8888)
-{"ts":168660933.0309960,"level":"info","file":"http_logging.go","line":73,"msg":"ListFlags","method":"GET","url":"/","proto":"HTTP/1.1","remote_addr":"127.0.0.1:60554","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"curl/8.0.1","header.host":"localhost:8888","header.User-Agent":"curl/8.0.1","header.Accept":"*/*"}
+{"ts":1686609330.309960,"level":"info","file":"http_logging.go","line":73,"msg":"ListFlags","method":"GET","url":"/","proto":"HTTP/1.1","remote_addr":"127.0.0.1:60554","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"curl/8.0.1","header.host":"localhost:8888","header.User-Agent":"curl/8.0.1","header.Accept":"*/*"}
 {"ts":1686609124.453697,"level":"info","file":"main.go","line":18,"msg":"FD count 20s later      : 14"}
 {"ts":1686609124.454075,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
 {"ts":1686609124.454411,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
