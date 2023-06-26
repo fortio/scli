@@ -50,26 +50,26 @@ New default style of logging since 1.5 (JSON for servers):
 $ go run . -config-dir ./config -config-port 8888 a b
 ```
 ```json
-{"ts":1686609103447926,"level":"info","file":"updater.go","line":47,"msg":"Configmap flag value watching on ./config"}
-{"ts":1686609103449381,"level":"info","file":"updater.go","line":156,"msg":"updating loglevel to \"verbose\\n\""}
-{"ts":1686609103449406,"level":"info","file":"logger.go","line":224,"msg":"Log level is now 1 Verbose (was 2 Info)"}
-{"ts":1686609103450125,"level":"info","file":"updater.go","line":97,"msg":"Now watching . and config"}
-{"ts":1686609103450240,"level":"info","file":"updater.go","line":162,"msg":"Background thread watching config now running"}
-{"ts":1686609103450523,"level":"info","file":"scli.go","line":87,"msg":"Fortio scli dev dflag config server listening on [::]:8888"}
-{"ts":1686609103450534,"level":"info","file":"scli.go","line":96,"msg":"Starting sampleServer dev  go1.20.5 arm64 darwin"}
-{"ts":1686609104452193,"level":"info","file":"main.go","line":16,"msg":"FD count 1s after start : 14"}
+{"ts":1686609103.447926,"level":"info","file":"updater.go","line":47,"msg":"Configmap flag value watching on ./config"}
+{"ts":1686609103.449381,"level":"info","file":"updater.go","line":156,"msg":"updating loglevel to \"verbose\\n\""}
+{"ts":1686609103.449406,"level":"info","file":"logger.go","line":224,"msg":"Log level is now 1 Verbose (was 2 Info)"}
+{"ts":1686609103.450125,"level":"info","file":"updater.go","line":97,"msg":"Now watching . and config"}
+{"ts":1686609103.450240,"level":"info","file":"updater.go","line":162,"msg":"Background thread watching config now running"}
+{"ts":1686609103.450523,"level":"info","file":"scli.go","line":87,"msg":"Fortio scli dev dflag config server listening on [::]:8888"}
+{"ts":1686609103.450534,"level":"info","file":"scli.go","line":96,"msg":"Starting sampleServer dev  go1.20.5 arm64 darwin"}
+{"ts":1686609104.452193,"level":"info","file":"main.go","line":16,"msg":"FD count 1s after start : 14"}
 # list flag (curl localhost:8888)
-{"ts":1686609330309960,"level":"info","file":"http_logging.go","line":73,"msg":"ListFlags","method":"GET","url":"/","proto":"HTTP/1.1","remote_addr":"127.0.0.1:60554","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"curl/8.0.1","header.host":"localhost:8888","header.User-Agent":"curl/8.0.1","header.Accept":"*/*"}
-{"ts":1686609124453697,"level":"info","file":"main.go","line":18,"msg":"FD count 20s later      : 14"}
-{"ts":1686609124454075,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
-{"ts":1686609124454411,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
-{"ts":1686609124454745,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
-{"ts":1686609124455071,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
-{"ts":1686609124455462,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
-{"ts":1686609124455482,"level":"info","file":"main.go","line":27,"msg":"Running until interrupted (ctrl-c)..."}
+{"ts":168660933.0309960,"level":"info","file":"http_logging.go","line":73,"msg":"ListFlags","method":"GET","url":"/","proto":"HTTP/1.1","remote_addr":"127.0.0.1:60554","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"curl/8.0.1","header.host":"localhost:8888","header.User-Agent":"curl/8.0.1","header.Accept":"*/*"}
+{"ts":1686609124.453697,"level":"info","file":"main.go","line":18,"msg":"FD count 20s later      : 14"}
+{"ts":1686609124.454075,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
+{"ts":1686609124.454411,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
+{"ts":1686609124.454745,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
+{"ts":1686609124.455071,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
+{"ts":1686609124.455462,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
+{"ts":1686609124.455482,"level":"info","file":"main.go","line":27,"msg":"Running until interrupted (ctrl-c)..."}
 # After ^C
-{"ts":1686609129019649,"level":"warn","file":"scli.go","line":107,"msg":"Interrupt received."}
-{"ts":1686609129019703,"level":"info","file":"main.go","line":29,"msg":"Normal exit"}
+{"ts":1686609129.019649,"level":"warn","file":"scli.go","line":107,"msg":"Interrupt received."}
+{"ts":1686609129.019703,"level":"info","file":"main.go","line":29,"msg":"Normal exit"}
 ```
 
 ## Additional builtins
@@ -109,8 +109,7 @@ build	GOOS=darwin
 
 ### help
 ```bash
-$ sampleServer help
-sampleServer 0.1.0 usage:
+sampleServer 1.6.0 usage:
 	sampleServer [flags] arg1 arg2 [arg3...arg4]
 or 1 of the special arguments
 	sampleServer {help|version|buildinfo}
@@ -119,15 +118,19 @@ flags:
     	Config directory to watch for dynamic flag changes
   -config-port port
     	Config port to open for dynamic flag UI/api
+  -logger-json
+    	Log in JSON format, use -logger-json=false to disable (default true)
+  -logger-timestamp
+    	Timestamps emitted in JSON logs, use -logger-timestamp=false to disable (default true)
   -loglevel level
     	log level, one of [Debug Verbose Info Warning Error Critical Fatal] (default Info)
   -quiet
-    	Quiet mode, sets log level to warning
+    	Quiet mode, sets loglevel to Error (quietly) to reduces the output
 ```
 
 ### version
 Short 'numeric' version (v skipped, useful for docker image tags etc)
 ```bash
 $ sampleServer version
-0.1.1
+1.6.0
 ```
