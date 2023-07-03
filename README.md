@@ -81,22 +81,20 @@ e.g
 
 ```bash
 $ go install fortio.org/cli/sampleServer@latest
-go: downloading fortio.org/cli v0.1.0
+go: downloading fortio.org/cli v1.7.0
 $ sampleServer buildinfo
-0.1.0 h1:M+coC8So/41xSyGiiJ/6RS+XhnshNUslZuaB6H8z9GI= go1.19.6 arm64 darwin
-go	go1.19.6
+dev  go1.20.5 arm64 darwin
+go	go1.20.5
 path	fortio.org/cli/sampleServer
-mod	fortio.org/cli	v0.1.0	h1:M+coC8So/41xSyGiiJ/6RS+XhnshNUslZuaB6H8z9GI=
-dep	fortio.org/dflag	v1.4.1	h1:WDhlHMh3yrQFrvspyN5YEyr8WATdKM2dUJlTxsjCDtI=
-dep	fortio.org/fortio	v1.50.1	h1:5FSttAHQsyAsi3dzxDmSByfzDYByrWY/yw53bqOg+Kc=
-dep	fortio.org/log	v1.2.2	h1:vs42JjNwiqbMbacittZjJE9+oi72Za6aekML9gKmILg=
+mod	fortio.org/scli	v1.7.0	h1:orn3xqUVLtgkD9LgYtAovVZtfzOzN0qCuItRTd5Z+d4=
+dep	fortio.org/cli	v1.1.0	h1:ATIxi7DgA7WAexUCF8p5a0qlGYk48ZgkwSEDrvwXeN4=
+dep	fortio.org/dflag	v1.5.2	h1:F9XVRj4Qr2IbJP7BMj7XZc9wB0Q/RZ61Ool+4YPVad8=
+dep	fortio.org/log	v1.5.0	h1:0f/O7QPXQoDSnRjy8t0IyxTlQOYQsDOe0EO4Wnw8yCA=
+dep	fortio.org/sets	v1.0.3	h1:HzewdGjH69YmyW06yzplL35lGr+X4OcqQt0qS6jbaO4=
 dep	fortio.org/version	v1.0.2	h1:8NwxdX58aoeKx7T5xAPO0xlUu1Hpk42nRz5s6e6eKZ0=
 dep	github.com/fsnotify/fsnotify	v1.6.0	h1:n+5WquG0fcWoWp6xPWfHdbskMCQaFnG6PfBrh1Ky4HY=
-dep	github.com/google/uuid	v1.3.0	h1:t6JiXgmwXMjEs8VusXIJk2BXHsn+wx8BZdTaoZ5fu7I=
-dep	golang.org/x/exp	v0.0.0-20230213192124-5e25df0256eb	h1:PaBZQdo+iSDyHT053FjUCgZQ/9uqVwPOcl7KSWhKn6w=
-dep	golang.org/x/net	v0.7.0	h1:rJrUqqhjsgNp7KqAIc25s9pZnjU7TUcSY7HcVZjdn1g=
-dep	golang.org/x/sys	v0.5.0	h1:MUK/U/4lj1t1oPg0HfuXDN/Z1wv31ZJ/YcPiGccS4DU=
-dep	golang.org/x/text	v0.7.0	h1:4BRB4x83lYWy72KwLD/qYDuTu7q9PjSagHvijDw7cLo=
+dep	golang.org/x/exp	v0.0.0-20230420155640-133eef4313cb	h1:rhjz/8Mbfa8xROFiH+MQphmAmgqRM0bOMnytznhWEXk=
+dep	golang.org/x/sys	v0.9.0	h1:KS/R3tvhPqvJvwcKfnBHJwwthS11LRhmM5D59eEXa0s=
 build	-compiler=gc
 build	CGO_ENABLED=1
 build	CGO_CFLAGS=
@@ -109,7 +107,7 @@ build	GOOS=darwin
 
 ### help
 ```bash
-sampleServer 1.6.0 usage:
+sampleServer 1.7.0 usage:
 	sampleServer [flags] arg1 arg2 [arg3...arg4]
 or 1 of the special arguments
 	sampleServer {help|version|buildinfo}
@@ -141,5 +139,5 @@ When debugging in dev mode the differences between 2 log output, it's convenient
 Short 'numeric' version (v skipped, useful for docker image tags etc)
 ```bash
 $ sampleServer version
-1.6.0
+1.7.0
 ```
