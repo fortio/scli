@@ -118,6 +118,8 @@ flags:
     	Config directory to watch for dynamic flag changes
   -config-port port
     	Config port to open for dynamic flag UI/api
+  -logger-file-line
+    	Filename and line numbers emitted in JSON logs, use -logger-file-line=false to disable (default true)
   -logger-json
     	Log in JSON format, use -logger-json=false to disable (default true)
   -logger-timestamp
@@ -127,6 +129,13 @@ flags:
   -quiet
     	Quiet mode, sets loglevel to Error (quietly) to reduces the output
 ```
+
+### Server log diff'ing
+
+When debugging in dev mode the differences between 2 log output, it's convenient to use the following flags
+
+- `-logger-timestamp=false` so the timestamp is removed from the output as that would be different always
+- `-logger-file-line=false` so code line numbers don't show as diffs either (if comparing different versions/releases)
 
 ### version
 Short 'numeric' version (v skipped, useful for docker image tags etc)

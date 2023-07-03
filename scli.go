@@ -61,6 +61,12 @@ func ServerMain() bool {
 		log.Debugf("Changing log format to JSON timestamp %v", newValue)
 		log.Config.NoTimestamp = !newValue
 	})
+	dflag.DynBool(flag.CommandLine, "logger-file-line", true,
+		"Filename and line numbers emitted in JSON logs, use -logger-file-line=false to disable").WithSyncNotifier(
+		func(_ bool, newValue bool) {
+			log.Debugf("Changing log format to JSON file and line %v", newValue)
+			log.Config.LogFileAndLine = newValue
+		})
 	cli.ServerMode = true
 	cli.Main() // will call ExitFunction() if there are usage errors
 	if *configDir != "" {
