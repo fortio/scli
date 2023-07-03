@@ -128,16 +128,16 @@ flags:
     	Quiet mode, sets loglevel to Error (quietly) to reduces the output
 ```
 
-### Server log diff'ing
-
-When debugging in dev mode the differences between 2 log output, it's convenient to use the following flags
-
-- `-logger-timestamp=false` so the timestamp is removed from the output as that would be different always
-- `-logger-file-line=false` so code line numbers don't show as diffs either (if comparing different versions/releases)
-
 ### version
 Short 'numeric' version (v skipped, useful for docker image tags etc)
 ```bash
 $ sampleServer version
 1.7.0
 ```
+
+## Server log diff'ing
+
+When debugging in dev mode the differences between 2 log output, it's convenient to use the following flags
+
+- `-logger-timestamp=false` so the timestamp is removed from the output as that would be different always
+- `-logger-file-line=false` so code line numbers don't show as diffs either (if comparing different versions/releases)
