@@ -13,9 +13,9 @@ You can see real use example in a server like [proxy](https://github.com/fortio/
 
 Server example [sampleServer](sampleServer/main.go)
 
-Previous style (non structured json log format):
+Previous style (non structured json, no color log format):
 ```bash
-% go run . -config-dir ./config -config-port 8888 -json-log=false a b
+% go run . -config-dir ./config -config-port 8888 -logger-no-color -logger-json=false a b
 14:50:54 I updater.go:47> Configmap flag value watching on ./config
 14:50:54 I updater.go:156> updating loglevel to "verbose\n"
 14:50:54 I logger.go:183> Log level is now 1 Verbose (was 2 Info)
@@ -25,8 +25,7 @@ Previous style (non structured json log format):
 14:50:54 I scli.go:90> Starting sampleServer dev  go1.20.3 arm64 darwin
 14:50:55 I main.go:16> FD count 1s after start : 16
 # When visiting the UI
-14:51:06 ListFlags: GET / HTTP/1.1 [::1]:64731 () ...
-# ...
+14:51:10 I http_logging.go:73> ListFlags, method="GET", url="/", proto="HTTP/1.1", remote_addr="[::1]:59034",
 14:51:15 I main.go:18> FD count 20s later      : 16
 14:51:15 I main.go:21> FD count stability check: 16
 14:51:15 I main.go:21> FD count stability check: 16
@@ -47,7 +46,7 @@ With the flags ui on http://localhost:8888
 
 New default style of logging since 1.5 (JSON for servers):
 ```bash
-$ go run . -config-dir ./config -config-port 8888 a b
+$ go run . -config-dir ./config -config-port 8888 a b 2>&1 | cat # forces no color because stderr isn't a terminal
 ```
 ```json
 {"ts":1686609103.447926,"level":"info","file":"updater.go","line":47,"msg":"Configmap flag value watching on ./config"}
@@ -107,7 +106,7 @@ build	GOOS=darwin
 
 ### help
 ```bash
-sampleServer 1.7.0 usage:
+sampleServer 1.8.0 usage:
 	sampleServer [flags] arg1 arg2 [arg3...arg4]
 or 1 of the special arguments
 	sampleServer {help|version|buildinfo}
@@ -118,8 +117,12 @@ flags:
     	Config port to open for dynamic flag UI/api
   -logger-file-line
     	Filename and line numbers emitted in JSON logs, use -logger-file-line=false to disable (default true)
+  -logger-force-color
+    	Force color output even if stderr isn't a terminal
   -logger-json
     	Log in JSON format, use -logger-json=false to disable (default true)
+  -logger-no-color
+    	Prevent colorized output even if stderr is a terminal
   -logger-timestamp
     	Timestamps emitted in JSON logs, use -logger-timestamp=false to disable (default true)
   -loglevel level
