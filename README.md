@@ -83,13 +83,13 @@ And console output default colorized mode comes from [log](https://github.com/fo
 e.g
 
 ```bash
-$ go install fortio.org/cli/sampleServer@latest
-go: downloading fortio.org/cli v1.7.0
+$ go install fortio.org/scli/sampleServer@latest
+go: downloading fortio.org/scli v1.7.0
 $ sampleServer buildinfo
-dev  go1.20.5 arm64 darwin
+1.7.0 h1:NC3z2k+2NY5zTB+XoQGX2MKJulMq61gltK8OrkR3U9U= go1.20.5 arm64 darwin
 go	go1.20.5
-path	fortio.org/cli/sampleServer
-mod	fortio.org/scli	v1.7.0	h1:orn3xqUVLtgkD9LgYtAovVZtfzOzN0qCuItRTd5Z+d4=
+path	fortio.org/scli/sampleServer
+mod	fortio.org/scli	v1.7.0	h1:NC3z2k+2NY5zTB+XoQGX2MKJulMq61gltK8OrkR3U9U=
 dep	fortio.org/cli	v1.1.0	h1:ATIxi7DgA7WAexUCF8p5a0qlGYk48ZgkwSEDrvwXeN4=
 dep	fortio.org/dflag	v1.5.2	h1:F9XVRj4Qr2IbJP7BMj7XZc9wB0Q/RZ61Ool+4YPVad8=
 dep	fortio.org/log	v1.5.0	h1:0f/O7QPXQoDSnRjy8t0IyxTlQOYQsDOe0EO4Wnw8yCA=
@@ -98,6 +98,7 @@ dep	fortio.org/version	v1.0.2	h1:8NwxdX58aoeKx7T5xAPO0xlUu1Hpk42nRz5s6e6eKZ0=
 dep	github.com/fsnotify/fsnotify	v1.6.0	h1:n+5WquG0fcWoWp6xPWfHdbskMCQaFnG6PfBrh1Ky4HY=
 dep	golang.org/x/exp	v0.0.0-20230420155640-133eef4313cb	h1:rhjz/8Mbfa8xROFiH+MQphmAmgqRM0bOMnytznhWEXk=
 dep	golang.org/x/sys	v0.9.0	h1:KS/R3tvhPqvJvwcKfnBHJwwthS11LRhmM5D59eEXa0s=
+build	-buildmode=exe
 build	-compiler=gc
 build	CGO_ENABLED=1
 build	CGO_CFLAGS=
