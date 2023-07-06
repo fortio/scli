@@ -71,6 +71,10 @@ $ go run . -config-dir ./config -config-port 8888 a b 2>&1 | cat # forces no col
 {"ts":1686609129.019703,"level":"info","file":"main.go","line":29,"msg":"Normal exit"}
 ```
 
+And console output default colorized mode comes from [log](https://github.com/fortio/log#log)'s 1.6.0 or newer:
+
+![Color example](https://github.com/fortio/log/blob/main/color.png)
+
 ## Additional builtins
 (coming from `cli`'s base module)
 
