@@ -13,9 +13,9 @@ You can see real use example in a server like [proxy](https://github.com/fortio/
 
 Server example [sampleServer](sampleServer/main.go)
 
-Previous style (non structured json log format):
+Previous style (non structured json, no color log format):
 ```bash
-% go run . -config-dir ./config -config-port 8888 -json-log=false a b
+% go run . -config-dir ./config -config-port 8888 -logger-no-color -logger-json=false a b
 14:50:54 I updater.go:47> Configmap flag value watching on ./config
 14:50:54 I updater.go:156> updating loglevel to "verbose\n"
 14:50:54 I logger.go:183> Log level is now 1 Verbose (was 2 Info)
@@ -25,8 +25,7 @@ Previous style (non structured json log format):
 14:50:54 I scli.go:90> Starting sampleServer dev  go1.20.3 arm64 darwin
 14:50:55 I main.go:16> FD count 1s after start : 16
 # When visiting the UI
-14:51:06 ListFlags: GET / HTTP/1.1 [::1]:64731 () ...
-# ...
+14:51:10 I http_logging.go:73> ListFlags, method="GET", url="/", proto="HTTP/1.1", remote_addr="[::1]:59034",
 14:51:15 I main.go:18> FD count 20s later      : 16
 14:51:15 I main.go:21> FD count stability check: 16
 14:51:15 I main.go:21> FD count stability check: 16
@@ -47,7 +46,7 @@ With the flags ui on http://localhost:8888
 
 New default style of logging since 1.5 (JSON for servers):
 ```bash
-$ go run . -config-dir ./config -config-port 8888 a b
+$ go run . -config-dir ./config -config-port 8888 a b 2>&1 | cat # forces no color because stderr isn't a terminal
 ```
 ```json
 {"ts":1686609103.447926,"level":"info","file":"updater.go","line":47,"msg":"Configmap flag value watching on ./config"}
@@ -72,6 +71,10 @@ $ go run . -config-dir ./config -config-port 8888 a b
 {"ts":1686609129.019703,"level":"info","file":"main.go","line":29,"msg":"Normal exit"}
 ```
 
+And console output default colorized mode comes from [log](https://github.com/fortio/log#log)'s 1.6.0 or newer:
+
+![Color example](https://github.com/fortio/log/blob/main/color.png)
+
 ## Additional builtins
 (coming from `cli`'s base module)
 
@@ -80,13 +83,13 @@ $ go run . -config-dir ./config -config-port 8888 a b
 e.g
 
 ```bash
-$ go install fortio.org/cli/sampleServer@latest
-go: downloading fortio.org/cli v1.7.0
+$ go install fortio.org/scli/sampleServer@latest
+go: downloading fortio.org/scli v1.7.0
 $ sampleServer buildinfo
-dev  go1.20.5 arm64 darwin
+1.7.0 h1:NC3z2k+2NY5zTB+XoQGX2MKJulMq61gltK8OrkR3U9U= go1.20.5 arm64 darwin
 go	go1.20.5
-path	fortio.org/cli/sampleServer
-mod	fortio.org/scli	v1.7.0	h1:orn3xqUVLtgkD9LgYtAovVZtfzOzN0qCuItRTd5Z+d4=
+path	fortio.org/scli/sampleServer
+mod	fortio.org/scli	v1.7.0	h1:NC3z2k+2NY5zTB+XoQGX2MKJulMq61gltK8OrkR3U9U=
 dep	fortio.org/cli	v1.1.0	h1:ATIxi7DgA7WAexUCF8p5a0qlGYk48ZgkwSEDrvwXeN4=
 dep	fortio.org/dflag	v1.5.2	h1:F9XVRj4Qr2IbJP7BMj7XZc9wB0Q/RZ61Ool+4YPVad8=
 dep	fortio.org/log	v1.5.0	h1:0f/O7QPXQoDSnRjy8t0IyxTlQOYQsDOe0EO4Wnw8yCA=
@@ -95,6 +98,7 @@ dep	fortio.org/version	v1.0.2	h1:8NwxdX58aoeKx7T5xAPO0xlUu1Hpk42nRz5s6e6eKZ0=
 dep	github.com/fsnotify/fsnotify	v1.6.0	h1:n+5WquG0fcWoWp6xPWfHdbskMCQaFnG6PfBrh1Ky4HY=
 dep	golang.org/x/exp	v0.0.0-20230420155640-133eef4313cb	h1:rhjz/8Mbfa8xROFiH+MQphmAmgqRM0bOMnytznhWEXk=
 dep	golang.org/x/sys	v0.9.0	h1:KS/R3tvhPqvJvwcKfnBHJwwthS11LRhmM5D59eEXa0s=
+build	-buildmode=exe
 build	-compiler=gc
 build	CGO_ENABLED=1
 build	CGO_CFLAGS=
@@ -107,7 +111,7 @@ build	GOOS=darwin
 
 ### help
 ```bash
-sampleServer 1.7.0 usage:
+sampleServer 1.8.0 usage:
 	sampleServer [flags] arg1 arg2 [arg3...arg4]
 or 1 of the special arguments
 	sampleServer {help|version|buildinfo}
@@ -118,8 +122,12 @@ flags:
     	Config port to open for dynamic flag UI/api
   -logger-file-line
     	Filename and line numbers emitted in JSON logs, use -logger-file-line=false to disable (default true)
+  -logger-force-color
+    	Force color output even if stderr isn't a terminal
   -logger-json
     	Log in JSON format, use -logger-json=false to disable (default true)
+  -logger-no-color
+    	Prevent colorized output even if stderr is a terminal
   -logger-timestamp
     	Timestamps emitted in JSON logs, use -logger-timestamp=false to disable (default true)
   -loglevel level
