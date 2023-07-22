@@ -67,6 +67,12 @@ func ServerMain() bool {
 			log.Debugf("Changing log format to JSON file and line %v", newValue)
 			log.Config.LogFileAndLine = newValue
 		})
+	dflag.DynBool(flag.CommandLine, "logger-goroutine", true,
+		"GoroutineID emitted in JSON/color logs, use -logger-goroutine=false to disable").WithSyncNotifier(
+		func(_ bool, newValue bool) {
+			log.Debugf("Changing log format to GoroutineID %v", newValue)
+			log.Config.GoroutineID = newValue
+		})
 	cli.ServerMode = true
 	cli.Main() // will call ExitFunction() if there are usage errors
 	if *configDir != "" {
