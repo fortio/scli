@@ -49,26 +49,26 @@ New default style of logging since 1.5 (JSON for servers):
 $ go run . -config-dir ./config -config-port 8888 a b 2>&1 | cat # forces no color because stderr isn't a terminal
 ```
 ```json
-{"ts":1686609103.447926,"level":"info","file":"updater.go","line":47,"msg":"Configmap flag value watching on ./config"}
-{"ts":1686609103.449381,"level":"info","file":"updater.go","line":156,"msg":"updating loglevel to \"verbose\\n\""}
-{"ts":1686609103.449406,"level":"info","file":"logger.go","line":224,"msg":"Log level is now 1 Verbose (was 2 Info)"}
-{"ts":1686609103.450125,"level":"info","file":"updater.go","line":97,"msg":"Now watching . and config"}
-{"ts":1686609103.450240,"level":"info","file":"updater.go","line":162,"msg":"Background thread watching config now running"}
-{"ts":1686609103.450523,"level":"info","file":"scli.go","line":87,"msg":"Fortio scli dev dflag config server listening on [::]:8888"}
-{"ts":1686609103.450534,"level":"info","file":"scli.go","line":96,"msg":"Starting sampleServer dev  go1.20.5 arm64 darwin"}
-{"ts":1686609104.452193,"level":"info","file":"main.go","line":16,"msg":"FD count 1s after start : 14"}
+{"ts":1689985712.410200,"level":"info","r":1,"file":"updater.go","line":47,"msg":"Configmap flag value watching on ./config"}
+{"ts":1689985712.411816,"level":"info","r":1,"file":"updater.go","line":156,"msg":"updating loglevel to \"verbose\\n\""}
+{"ts":1689985712.411841,"level":"info","r":1,"file":"logger.go","line":245,"msg":"Log level is now 1 Verbose (was 2 Info)"}
+{"ts":1689985712.412396,"level":"info","r":1,"file":"updater.go","line":97,"msg":"Now watching . and config"}
+{"ts":1689985712.412539,"level":"info","r":19,"file":"updater.go","line":162,"msg":"Background thread watching config now running"}
+{"ts":1689985712.412901,"level":"info","r":1,"file":"scli.go","line":104,"msg":"Fortio scli dev dflag config server listening on [::]:8888"}
+{"ts":1689985712.412911,"level":"info","r":1,"file":"scli.go","line":113,"msg":"Starting sampleServer dev  go1.20.6 arm64 darwin"}
+{"ts":1689985713.415586,"level":"info","r":1,"file":"main.go","line":16,"msg":"FD count 1s after start : 14"}
 # list flag (curl localhost:8888)
-{"ts":1686609330.309960,"level":"info","file":"http_logging.go","line":73,"msg":"ListFlags","method":"GET","url":"/","proto":"HTTP/1.1","remote_addr":"127.0.0.1:60554","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"curl/8.0.1","header.host":"localhost:8888","header.User-Agent":"curl/8.0.1","header.Accept":"*/*"}
-{"ts":1686609124.453697,"level":"info","file":"main.go","line":18,"msg":"FD count 20s later      : 14"}
-{"ts":1686609124.454075,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
-{"ts":1686609124.454411,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
-{"ts":1686609124.454745,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
-{"ts":1686609124.455071,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
-{"ts":1686609124.455462,"level":"info","file":"main.go","line":21,"msg":"FD count stability check: 14"}
-{"ts":1686609124.455482,"level":"info","file":"main.go","line":27,"msg":"Running until interrupted (ctrl-c)..."}
-# After ^C
-{"ts":1686609129.019649,"level":"warn","file":"scli.go","line":107,"msg":"Interrupt received."}
-{"ts":1686609129.019703,"level":"info","file":"main.go","line":29,"msg":"Normal exit"}
+{"ts":1689985717.703528,"level":"info","r":21,"file":"http_logging.go","line":73,"msg":"ListFlags","method":"GET","url":"/","proto":"HTTP/1.1","remote_addr":"127.0.0.1:57975","host":"localhost:8888","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"curl/8.0.1","header.User-Agent":"curl/8.0.1","header.Accept":"*/*"}
+{"ts":1689985733.418850,"level":"info","r":1,"file":"main.go","line":18,"msg":"FD count 20s later      : 14"}
+{"ts":1689985733.419088,"level":"info","r":1,"file":"main.go","line":21,"msg":"FD count stability check: 14"}
+{"ts":1689985733.419280,"level":"info","r":1,"file":"main.go","line":21,"msg":"FD count stability check: 14"}
+{"ts":1689985733.419426,"level":"info","r":1,"file":"main.go","line":21,"msg":"FD count stability check: 14"}
+{"ts":1689985733.419565,"level":"info","r":1,"file":"main.go","line":21,"msg":"FD count stability check: 14"}
+{"ts":1689985733.419702,"level":"info","r":1,"file":"main.go","line":21,"msg":"FD count stability check: 14"}
+{"ts":1689985733.419710,"level":"info","r":1,"file":"main.go","line":27,"msg":"Running until interrupted (ctrl-c)..."}
+# Sending INT signal
+{"ts":1689985903.623639,"level":"warn","r":1,"file":"scli.go","line":124,"msg":"Interrupt received."}
+{"ts":1689985903.623682,"level":"info","r":1,"file":"main.go","line":29,"msg":"Normal exit"}
 ```
 
 And console output default colorized mode comes from [log](https://github.com/fortio/log#log)'s 1.6.0 or newer:
@@ -124,6 +124,8 @@ flags:
     	Filename and line numbers emitted in JSON logs, use -logger-file-line=false to disable (default true)
   -logger-force-color
     	Force color output even if stderr isn't a terminal
+  -logger-goroutine
+    	GoroutineID emitted in JSON/color logs, use -logger-goroutine=false to disable (default true)
   -logger-json
     	Log in JSON format, use -logger-json=false to disable (default true)
   -logger-no-color
@@ -149,3 +151,4 @@ When debugging in dev mode the differences between 2 log output, it's convenient
 
 - `-logger-timestamp=false` so the timestamp is removed from the output as that would be different always
 - `-logger-file-line=false` so code line numbers don't show as diffs either (if comparing different versions/releases)
+- `-logger-goroutine=false` so Goroutine IDs don't show (which may or may not be desired)
