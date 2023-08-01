@@ -101,7 +101,7 @@ func ServerMain() bool {
 		if err != nil {
 			log.Fatalf("Unable to serve config on %s: %v", s.Addr, err)
 		}
-		log.Infof("Fortio scli %v dflag config server listening on %s", shortScliV, ln.Addr())
+		log.S(log.Info, "Fortio scli dflag config server listening", log.Str("version", shortScliV), log.Attr("addr", ln.Addr()))
 		go func() {
 			err := s.Serve(ln)
 			if err != nil {
@@ -110,7 +110,7 @@ func ServerMain() bool {
 		}()
 		hasStartedServer = true
 	}
-	log.Infof("Starting %s %s", cli.ProgramName, cli.LongVersion)
+	log.S(log.Info, "Starting", log.Str("command", cli.ProgramName), log.Str("version", cli.LongVersion))
 	return hasStartedServer
 }
 
