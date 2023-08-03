@@ -16,26 +16,26 @@ Server example [sampleServer](sampleServer/main.go)
 Previous style (non structured json, no color log format):
 ```bash
 % go run . -config-dir ./config -config-port 8888 -logger-no-color -logger-json=false a b
-14:50:54 I updater.go:47> Configmap flag value watching on ./config
-14:50:54 I updater.go:156> updating loglevel to "verbose\n"
-14:50:54 I logger.go:183> Log level is now 1 Verbose (was 2 Info)
-14:50:54 I updater.go:97> Now watching . and config
-14:50:54 I updater.go:162> Background thread watching config now running
-14:50:54 I scli.go:81> Fortio scli dev dflag config server listening on [::]:8888
-14:50:54 I scli.go:90> Starting sampleServer dev  go1.20.3 arm64 darwin
-14:50:55 I main.go:16> FD count 1s after start : 16
+14:50:54 [I] updater.go:47> Configmap flag value watching on ./config
+14:50:54 [I] updater.go:156> updating loglevel to "verbose\n"
+14:50:54 [I] logger.go:183> Log level is now 1 Verbose (was 2 Info)
+14:50:54 [I] updater.go:97> Now watching . and config
+14:50:54 [I] updater.go:162> Background thread watching config now running
+14:50:54 [I] scli.go:81> Fortio scli dev dflag config server listening on [::]:8888
+14:50:54 [I] scli.go:90> Starting sampleServer dev  go1.20.3 arm64 darwin
+14:50:55 [I] main.go:16> FD count 1s after start : 16
 # When visiting the UI
-14:51:10 I http_logging.go:73> ListFlags, method="GET", url="/", proto="HTTP/1.1", remote_addr="[::1]:59034",
-14:51:15 I main.go:18> FD count 20s later      : 16
-14:51:15 I main.go:21> FD count stability check: 16
-14:51:15 I main.go:21> FD count stability check: 16
-14:51:15 I main.go:21> FD count stability check: 16
-14:51:15 I main.go:21> FD count stability check: 16
-14:51:15 I main.go:21> FD count stability check: 16
-14:51:15 I main.go:27> Running until interrupted (ctrl-c)...
+14:51:10 [I] http_logging.go:73> ListFlags, method="GET", url="/", proto="HTTP/1.1", remote_addr="[::1]:59034",
+14:51:15 [I] main.go:18> FD count 20s later      : 16
+14:51:15 [I] main.go:21> FD count stability check: 16
+14:51:15 [I] main.go:21> FD count stability check: 16
+14:51:15 [I] main.go:21> FD count stability check: 16
+14:51:15 [I] main.go:21> FD count stability check: 16
+14:51:15 [I] main.go:21> FD count stability check: 16
+14:51:15 [I] main.go:27> Running until interrupted (ctrl-c)...
 # pkill -int sampleServer
-14:51:20 W scli.go:101> Interrupt received.
-14:51:20 I main.go:29> Normal exit
+14:51:20 [W] scli.go:101> Interrupt received.
+14:51:20 [I] main.go:29> Normal exit
 % echo $?
 0
 ```
