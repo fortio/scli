@@ -7,6 +7,8 @@ Extends [cli](https://github.com/fortio/cli#cli) to server `main()`s .
 
 In addition to flags, usage and help output, arguments validation, `scli` abstracts the repetitive parts of a `main()` to setup a config directory watch for [dynamic flags](https://github.com/fortio/dflag) (configmap in kubernetes cases) and configuration endpoint/UI/api.
 
+It also sets up standard library logger interception to log these under same JSON (or color console) format.
+
 You can see real use example in a server like [proxy](https://github.com/fortio/proxy).
 
 ## Server Example
