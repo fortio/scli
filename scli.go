@@ -80,6 +80,10 @@ func ServerMain() bool {
 			log.Critf("Unable to watch config/flag changes in %v: %v", *configDir, err)
 		}
 	}
+
+	// So http client library for instance ends up logging in JSON or color too and not break json parsing.
+	log.InterceptStandardLogger(log.Warning)
+
 	shortScliV, _, _ := version.FromBuildInfoPath("fortio.org/scli")
 
 	hasStartedServer := false
