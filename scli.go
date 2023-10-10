@@ -76,8 +76,11 @@ func ServerMain() bool {
 	cli.ServerMode = true
 	cli.Main() // will call ExitFunction() if there are usage errors
 	if *configDir != "" {
-		if _, err := configmap.Setup(flag.CommandLine, *configDir); err != nil {
+		updt, err := configmap.Setup(flag.CommandLine, *configDir)
+		if err != nil {
 			log.Critf("Unable to watch config/flag changes in %v: %v", *configDir, err)
+		} else if updt.Warnings() != 0 {
+			log.S(log.Warning, "Unknown flags found", log.Int("count", updt.Warnings()), log.Str("dir", *configDir))
 		}
 	}
 
