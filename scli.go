@@ -31,6 +31,8 @@ import (
 	"fortio.org/version"
 )
 
+var ConfigMapUpdater *configmap.Updater // Expose the updater if advanced callers want to check warnings or stop it etc.
+
 // NormalizePort parses port and returns host:port if port is in the form
 // of host:port already or :port if port is only a port (doesn't contain :).
 // Copied from fortio.org/fnet.NormalizePort to avoid dependency loop.
@@ -76,11 +78,12 @@ func ServerMain() bool {
 	cli.ServerMode = true
 	cli.Main() // will call ExitFunction() if there are usage errors
 	if *configDir != "" {
-		updt, err := configmap.Setup(flag.CommandLine, *configDir)
+		var err error
+		ConfigMapUpdater, err = configmap.Setup(flag.CommandLine, *configDir)
 		if err != nil {
 			log.Critf("Unable to watch config/flag changes in %v: %v", *configDir, err)
-		} else if updt.Warnings() != 0 {
-			log.S(log.Warning, "Unknown flags found", log.Int("count", updt.Warnings()), log.Str("dir", *configDir))
+		} else if ConfigMapUpdater.Warnings() != 0 {
+			log.S(log.Warning, "Unknown flags found", log.Int("count", ConfigMapUpdater.Warnings()), log.Str("dir", *configDir))
 		}
 	}
 
