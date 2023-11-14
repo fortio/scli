@@ -19,6 +19,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"runtime"
 	"strings"
 	"time"
 
@@ -120,7 +121,8 @@ func ServerMain() bool {
 		}()
 		hasStartedServer = true
 	}
-	log.S(log.Info, "Starting", log.Str("command", cli.ProgramName), log.Str("version", cli.LongVersion))
+	log.S(log.Info, "Starting", log.Str("command", cli.ProgramName), log.Str("version", cli.LongVersion),
+		log.Int("go-max-procs", runtime.GOMAXPROCS(0)))
 	return hasStartedServer
 }
 
