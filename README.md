@@ -147,6 +147,25 @@ $ sampleServer version
 1.7.0
 ```
 
+### envhelp
+Will display a chain of [fortio.org/struct2env](https://github.com/fortio/struct2env) environment variables<->config settings
+
+```bash
+$ sampleServer envhelp
+# Environment variables recognized and current values:
+# Logger environment variables:
+LOGGER_LOG_PREFIX='> '
+LOGGER_LOG_FILE_AND_LINE=true
+LOGGER_FATAL_PANICS=true
+LOGGER_JSON=true
+LOGGER_NO_TIMESTAMP=false
+LOGGER_CONSOLE_COLOR=true
+LOGGER_FORCE_COLOR=false
+LOGGER_GOROUTINE_ID=true
+LOGGER_COMBINE_REQUEST_AND_RESPONSE=true
+LOGGER_LEVEL='Info'
+```
+
 ## Server log diff'ing
 
 When debugging in dev mode the differences between 2 log output, it's convenient to use the following flags
