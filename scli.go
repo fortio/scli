@@ -21,6 +21,7 @@ import (
 	"os/signal"
 	"runtime"
 	"strings"
+	"syscall"
 	"time"
 
 	"fortio.org/cli"
@@ -130,7 +131,7 @@ func ServerMain() bool {
 func UntilInterrupted() {
 	// listen for interrupt signal
 	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 	// Block until a signal is received.
 	<-c
 	log.Warnf("Interrupt received.")
