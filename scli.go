@@ -127,7 +127,9 @@ func ServerMain() bool {
 	return hasStartedServer
 }
 
-// UntilInterrupted runs forever or until interrupted (ctrl-c or shutdown signal (kill -INT)).
+// UntilInterrupted runs forever or until interrupted (ctrl-c or shutdown signal (kill -INT or -TERM)).
+// Kubernetes for instance sends a SIGTERM before killing a pod.
+// You can place your clean shutdown code after this call in the main().
 func UntilInterrupted() {
 	// listen for interrupt signal
 	c := make(chan os.Signal, 1)
