@@ -17,11 +17,8 @@ import (
 	"flag"
 	"net"
 	"net/http"
-	"os"
-	"os/signal"
 	"runtime"
 	"strings"
-	"syscall"
 	"time"
 
 	"fortio.org/cli"
@@ -130,11 +127,7 @@ func ServerMain() bool {
 // UntilInterrupted runs forever or until interrupted (ctrl-c or shutdown signal (kill -INT or -TERM)).
 // Kubernetes for instance sends a SIGTERM before killing a pod.
 // You can place your clean shutdown code after this call in the main().
+// UntilInterrupted forwards to [cli.UntilInterrupted], call that one directly in newer code.
 func UntilInterrupted() {
-	// listen for interrupt signal
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
-	// Block until a signal is received.
-	<-c
-	log.Warnf("Interrupt received.")
+	cli.UntilInterrupted()
 }
