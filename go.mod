@@ -3,9 +3,9 @@ module fortio.org/scli
 go 1.18
 
 require (
-	fortio.org/cli v1.9.0
-	fortio.org/dflag v1.7.2
-	fortio.org/log v1.16.0
+	fortio.org/cli v1.9.2
+	fortio.org/dflag v1.7.3
+	fortio.org/log v1.17.1
 	fortio.org/version v1.0.4
 	golang.org/x/sys v0.25.0
 )
