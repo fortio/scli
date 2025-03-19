@@ -1,13 +1,14 @@
 module fortio.org/scli
 
 go 1.18
+toolchain go1.24.1
 
 require (
 	fortio.org/cli v1.9.2
 	fortio.org/dflag v1.7.3
 	fortio.org/log v1.17.1
 	fortio.org/version v1.0.4
-	golang.org/x/sys v0.30.0
+	golang.org/x/sys v0.31.0
 )
 
 require (
