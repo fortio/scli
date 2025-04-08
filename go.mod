@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	fortio.org/cli v1.10.0
-	fortio.org/dflag v1.8.0
+	fortio.org/dflag v1.8.1
 	fortio.org/log v1.17.2
 	fortio.org/version v1.0.4
 	golang.org/x/sys v0.30.0
