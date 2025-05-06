@@ -2,8 +2,6 @@ fortio.org/assert v1.2.1 h1:48I39urpeDj65RP1KguF7akCjILNeu6vICiYMEysR7Q=
 fortio.org/assert v1.2.1/go.mod h1:039mG+/iYDPO8Ibx8TrNuJCm2T2SuhwRI3uL9nHTTls=
 fortio.org/cli v1.10.0 h1:BsJXuBrJxBLqE+62gHSOQBRzY+EvE/sF1MnjIexUSI8=
 fortio.org/cli v1.10.0/go.mod h1:DNxA/oD3cQaOtTean8Sgr78lJrwGLIs06X8U/G3va+M=
-fortio.org/dflag v1.8.0 h1:9rPDl3fUhkibyveiwFsrM55mhd+o/X9ahQdK/l03iO8=
-fortio.org/dflag v1.8.0/go.mod h1:xLYD+dRmATo04buyLAIc8+yUWUfSG/QS/2RO9cNTGII=
 fortio.org/dflag v1.8.1 h1:2ax/9IvIwMb0zPE3yZEDp9D+UewfZzj5B8UKT79tblU=
 fortio.org/dflag v1.8.1/go.mod h1:M2K61nLYfB4pAsp7mZzBtjqLP6dX11R9Vm+1I4F+sVg=
 fortio.org/log v1.17.2 h1:JPX/ApDXDoGzsNtXw0AJI4ai6tl9wHp4Ch6bVs1OK0Y=
@@ -20,5 +18,5 @@ github.com/kortschak/goroutine v1.1.2 h1:lhllcCuERxMIK5cYr8yohZZScL1na+JM5JYPRcl
 github.com/kortschak/goroutine v1.1.2/go.mod h1:zKpXs1FWN/6mXasDQzfl7g0LrGFIOiA6cLs9eXKyaMY=
 golang.org/x/crypto/x509roots/fallback v0.0.0-20250203165127-fa5273e46196 h1:jNA5ftLV4UJrgO6aUB7Jg372YkLI5SP7iHYy3s6in7g=
 golang.org/x/crypto/x509roots/fallback v0.0.0-20250203165127-fa5273e46196/go.mod h1:kNa9WdvYnzFwC79zRpLRMJbdEFlhyM5RPFBBZp/wWH8=
-golang.org/x/sys v0.30.0 h1:QjkSwP/36a20jFYWkSue1YwXzLmsV5Gfq7Eiy72C1uc=
-golang.org/x/sys v0.30.0/go.mod h1:/VUhepiaJMQUp4+oa/7Zr1D23ma6VTLIYjOOTFZPUcA=
+golang.org/x/sys v0.33.0 h1:q3i8TbbEz+JRD9ywIRlyRAQbM0qF7hu24q3teo2hbuw=
+golang.org/x/sys v0.33.0/go.mod h1:BJP2sWEmIv4KK5OTEluFJCKSidICx8ciO85XgH3Ak8k=
