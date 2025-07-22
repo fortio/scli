@@ -17,7 +17,7 @@ func main() {
 	time.Sleep(20 * time.Second)
 	log.Infof("FD count 20s later      : %d", scli.NumFD())
 	// is it stable:
-	for i := 0; i < 5; i++ {
+	for range 5 {
 		log.Infof("FD count stability check: %d", scli.NumFD())
 	}
 	if !srvStarted {
