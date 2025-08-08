@@ -14,6 +14,7 @@
 package scli // import "fortio.org/scli"
 
 import (
+	"context"
 	"flag"
 	"net"
 	"net/http"
@@ -106,7 +107,8 @@ func ServerMain() bool {
 		ep := endpoint.NewFlagsEndpoint(flag.CommandLine, setURL)
 		m.HandleFunc("/", ep.ListFlags)
 		m.HandleFunc(setURL, ep.SetFlag)
-		ln, err := net.Listen("tcp", port)
+		cfg := net.ListenConfig{}
+		ln, err := cfg.Listen(context.Background(), "tcp", port)
 		if err != nil {
 			log.Fatalf("Unable to serve config on %s: %v", s.Addr, err)
 		}
