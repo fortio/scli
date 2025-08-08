@@ -18,5 +18,5 @@ github.com/kortschak/goroutine v1.1.2 h1:lhllcCuERxMIK5cYr8yohZZScL1na+JM5JYPRcl
 github.com/kortschak/goroutine v1.1.2/go.mod h1:zKpXs1FWN/6mXasDQzfl7g0LrGFIOiA6cLs9eXKyaMY=
 golang.org/x/crypto/x509roots/fallback v0.0.0-20250203165127-fa5273e46196 h1:jNA5ftLV4UJrgO6aUB7Jg372YkLI5SP7iHYy3s6in7g=
 golang.org/x/crypto/x509roots/fallback v0.0.0-20250203165127-fa5273e46196/go.mod h1:kNa9WdvYnzFwC79zRpLRMJbdEFlhyM5RPFBBZp/wWH8=
-golang.org/x/sys v0.34.0 h1:H5Y5sJ2L2JRdyv7ROF1he/lPdvFsd0mJHFw2ThKHxLA=
-golang.org/x/sys v0.34.0/go.mod h1:BJP2sWEmIv4KK5OTEluFJCKSidICx8ciO85XgH3Ak8k=
+golang.org/x/sys v0.35.0 h1:vz1N37gP5bs89s7He8XuIYXpyY0+QlsKmzipCbUtyxI=
+golang.org/x/sys v0.35.0/go.mod h1:BJP2sWEmIv4KK5OTEluFJCKSidICx8ciO85XgH3Ak8k=
