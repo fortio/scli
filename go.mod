@@ -4,14 +4,14 @@ go 1.23.0
 
 require (
 	fortio.org/cli v1.11.0
-	fortio.org/dflag v1.9.1
+	fortio.org/dflag v1.9.2
 	fortio.org/log v1.17.2
 	fortio.org/version v1.0.4
 	golang.org/x/sys v0.35.0
 )
 
 require (
-	fortio.org/duration v1.0.1 // indirect
+	fortio.org/duration v1.0.4 // indirect
 	fortio.org/sets v1.3.0 // indirect
 	fortio.org/struct2env v0.4.2 // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
