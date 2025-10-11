@@ -3,7 +3,7 @@ module fortio.org/scli
 go 1.23.0
 
 require (
-	fortio.org/cli v1.12.1
+	fortio.org/cli v1.12.2
 	fortio.org/dflag v1.9.2
 	fortio.org/log v1.18.1
 	fortio.org/version v1.0.4
