@@ -4,7 +4,6 @@
 // See LICENSE
 
 //go:build !windows
-// +build !windows
 
 package scli // import "fortio.org/scli"
 
