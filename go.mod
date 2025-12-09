@@ -7,7 +7,7 @@ require (
 	fortio.org/dflag v1.9.3
 	fortio.org/log v1.18.3
 	fortio.org/version v1.0.4
-	golang.org/x/sys v0.38.0
+	golang.org/x/sys v0.39.0
 )
 
 require (
