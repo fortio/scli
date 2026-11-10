@@ -11,7 +11,7 @@
 // [ServerMain].
 // It also includes [NumFD] utility function to cross platform get the number
 // of open file descriptors (handles on windows) held by your go process.
-package scli // import "fortio.org/scli"
+package scli
 
 import (
 	"context"

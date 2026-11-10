@@ -5,7 +5,7 @@
 
 //go:build !windows
 
-package scli // import "fortio.org/scli"
+package scli
 
 import (
 	"os"
