@@ -16,6 +16,7 @@ package scli
 import (
 	"context"
 	"flag"
+	"math"
 	"net"
 	"net/http"
 	"runtime"
@@ -75,6 +76,16 @@ func ServerMain() bool {
 			log.Debugf("Changing log format to GoroutineID %v", newValue)
 			log.Config.GoroutineID = newValue
 		})
+	dflag.DynInt64(flag.CommandLine, "gomaxprocs", 0,
+		"Change go's gomaxproc value, <0 stay unchanged/uses GOMAXPROCS env or default").WithSyncNotifier(
+		func(_, newValue int64) {
+			old := runtime.GOMAXPROCS(0)
+			if newValue > 0 && newValue < math.MaxInt && newValue != int64(old) { // don't overflow int
+				newValueInt := int(newValue)
+				runtime.GOMAXPROCS(newValueInt)
+				log.S(log.Info, "Changed GOMAXPROCS", log.Int("old", old), log.Int("new", newValueInt))
+			}
+		})
 	cli.ServerMode = true
 	cli.Main() // will call ExitFunction() if there are usage errors
 	if *configDir != "" {
@@ -122,7 +133,7 @@ func ServerMain() bool {
 		hasStartedServer = true
 	}
 	log.S(log.Info, "Starting", log.Str("command", cli.ProgramName), log.Str("version", cli.LongVersion),
-		log.Int("go-max-procs", runtime.GOMAXPROCS(0)))
+		log.Int("gomaxprocs", runtime.GOMAXPROCS(0)))
 	return hasStartedServer
 }
 
